@@ -1,0 +1,9 @@
+<p>studentdetails works!</p>
+
+Name : {{ name }} <br>
+Roll Number : {{ rollNumber }} <br><br>
+
+<h1>Marks list</h1> <br>
+<p *ngFor="let subjectMarks of marks">
+    {{subjectMarks.name}} : {{subjectMarks.marks}}
+</p>
