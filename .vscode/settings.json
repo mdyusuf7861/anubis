@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/0a0a1ffb-8f44-47dd-a5ce-88d448396593/resourceGroups/studycentre_group/providers/Microsoft.Web/sites/stydycentre",
+    "appService.deploySubpath": "."
+}

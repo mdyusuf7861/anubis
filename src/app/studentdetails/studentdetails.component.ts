@@ -1,8 +1,17 @@
-import { Component } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
+import { HttpClient } from '@angular/common/http';
 
 interface studentMarks{
   name: string;
   marks: number;
+}
+
+interface studentInfo{
+  id: string;
+  rollNumber: number;
+  name: string;
+  marks: studentMarks[]
 }
 
 @Component({
@@ -10,13 +19,20 @@ interface studentMarks{
   templateUrl: './studentdetails.component.html',
   styleUrls: ['./studentdetails.component.css']
 })
-export class StudentdetailsComponent {
-  name: string = 'Pradeep';
-  rollNumber: number = 22;
+export class StudentdetailsComponent implements OnInit {
 
-  marks: studentMarks[] = [{ name: 'Telugu', marks: 22 },
-  { name: 'Maths', marks: 22 },
-  { name: 'Physics', marks: 33 },
-  { name: 'Chemistry', marks: 44 }
-]
+  constructor(private route: ActivatedRoute, private http: HttpClient ){
+
+  }
+
+  studentInfo?: studentInfo;
+
+  ngOnInit(): void {
+    var userid = this.route.snapshot.params['id'];
+    var promise = this.http.get<studentInfo>('api/students/' + userid);
+
+    promise.subscribe(student => {
+      this.studentInfo = student;
+    })
+  }
 }
