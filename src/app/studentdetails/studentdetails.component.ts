@@ -1,18 +1,9 @@
 import { Component,  OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { HttpClient } from '@angular/common/http';
+import { studentInfo } from '../student-model';
 
-interface studentMarks{
-  name: string;
-  marks: number;
-}
 
-interface studentInfo{
-  id: string;
-  rollNumber: number;
-  name: string;
-  marks: studentMarks[]
-}
 
 @Component({
   selector: 'app-studentdetails',
@@ -29,9 +20,9 @@ export class StudentdetailsComponent implements OnInit {
 
   ngOnInit(): void {
     var userid = this.route.snapshot.params['id'];
-    var promise = this.http.get<studentInfo>('api/students/' + userid);
+    var observable = this.http.get<studentInfo>('api/students/' + userid);
 
-    promise.subscribe(student => {
+    observable.subscribe(student => {
       this.studentInfo = student;
     })
   }

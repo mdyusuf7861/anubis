@@ -16,13 +16,15 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentListComponent } from './student-list/student-list.component';
+//import { StudentCreateComponent } from './student-create/student-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     StudentdetailsComponent,
-    StudentListComponent
+    StudentListComponent,
+    //StudentCreateComponent
   ],
   imports: [
     BrowserModule,
