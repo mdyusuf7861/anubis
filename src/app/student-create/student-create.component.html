@@ -1,0 +1,9 @@
+
+<form [formGroup]="studentForm">
+    <input name='id' type="text" formControlName="id"><br>
+    <input name='rollNumber' type="text" formControlName="number"><br>
+    <input name='name' type="text" [formControl]="studentForm.controls.userName"><br>
+    <button type="submit" (click)="submit()">Subit</button>
+</form>
+<br>
+<button (change)="Reset()">Reset</button>

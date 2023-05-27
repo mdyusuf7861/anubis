@@ -25,5 +25,6 @@ export class StudentdetailsComponent implements OnInit {
     observable.subscribe(student => {
       this.studentInfo = student;
     })
+    
   }
 }

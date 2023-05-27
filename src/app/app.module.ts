@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +18,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentListComponent } from './student-list/student-list.component';
-//import { StudentCreateComponent } from './student-create/student-create.component';
+import { StudentCreateComponent } from './student-create/student-create.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +26,13 @@ import { StudentListComponent } from './student-list/student-list.component';
     ToolbarComponent,
     StudentdetailsComponent,
     StudentListComponent,
-    //StudentCreateComponent
+    StudentCreateComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
 
@@ -38,7 +43,7 @@ import { StudentListComponent } from './student-list/student-list.component';
     BrowserAnimationsModule,
 
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+      InMemoryDataService, { dataEncapsulation: false, delay: 1000 }
     ) 
   ],
   providers: [],
