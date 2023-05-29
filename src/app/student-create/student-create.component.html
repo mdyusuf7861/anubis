@@ -1,9 +1,21 @@
 
 <form [formGroup]="studentForm">
-    <input name='id' type="text" formControlName="id"><br>
-    <input name='rollNumber' type="text" formControlName="number"><br>
-    <input name='name' type="text" [formControl]="studentForm.controls.userName"><br>
-    <button type="submit" (click)="submit()">Subit</button>
+    id : <input name='id' type="text" formControlName="id"><br>
+    Roll Number : <input name='rollNumber' type="text" formControlName="number"><br>
+    User name : <input name='name' type="text" [formControl]="studentForm.controls.userName"><br>
+
+
+    Marks secured <br>
+
+    <div *ngFor="let marksGroup of studentForm.controls.marks.controls">
+        <!-- {{marksGroup.controls.subject.value}} -->
+        <br>
+        <input type="text" [formControl]="marksGroup.controls.subject"><br>
+        <input type="text" [formControl]="marksGroup.controls.marks"><br>
+    </div>
+    
+    <button (click)="AddSubjectControls()">Add</button>
+    <button type="submit" (click)="submit()">Submit</button>
 </form>
 <br>
 <button (change)="Reset()">Reset</button>
