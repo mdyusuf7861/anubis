@@ -1,7 +1,7 @@
 import { Component,  OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
-import { HttpClient } from '@angular/common/http';
 import { studentInfo } from '../student-model';
+import { StudentService } from '../student.service';
 
 
 
@@ -12,19 +12,23 @@ import { studentInfo } from '../student-model';
 })
 export class StudentdetailsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private http: HttpClient ){
+  constructor(private route: ActivatedRoute, private studentSerivice: StudentService ){
 
   }
 
   studentInfo?: studentInfo;
 
   ngOnInit(): void {
-    var userid = this.route.snapshot.params['id'];
-    var observable = this.http.get<studentInfo>('api/students/' + userid);
+    //  var userid = this.route.snapshot.params['id'];
 
-    observable.subscribe(student => {
-      this.studentInfo = student;
-    })
+    this.route.params.subscribe(paramObject => {
+      var userid = paramObject['id'];
+
+      var observable = this.studentSerivice.getStudentDetails(userid);
+      observable.subscribe(student => {
+        this.studentInfo = student;
+      })
+    })   
     
   }
 }

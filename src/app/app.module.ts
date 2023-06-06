@@ -19,6 +19,7 @@ import { InMemoryDataService } from './in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentCreateComponent } from './student-create/student-create.component';
+import { StudentService } from './student.service';
 
 @NgModule({
   declarations: [
@@ -43,10 +44,10 @@ import { StudentCreateComponent } from './student-create/student-create.componen
     BrowserAnimationsModule,
 
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false, delay: 1000 }
+      InMemoryDataService, { dataEncapsulation: false, delay: 1 }
     ) 
   ],
-  providers: [],
+  providers: [StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

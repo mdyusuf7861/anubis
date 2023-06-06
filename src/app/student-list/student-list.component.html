@@ -1,5 +1,12 @@
-<p>student-list works!</p>
 
-<p *ngFor="let student of studentList">
-    <a routerLink="/student/{{student.id}}">{{student.name}}</a><br>
-</p>
+<div class="grid-container">
+    <div class="grid-item">
+        <p>student-list</p>        
+        <p *ngFor="let student of studentList">
+            <a routerLink="/students/{{student.id}}">{{student.name}}</a><br>
+        </p>
+    </div>
+    <div class="grid-item">
+        <router-outlet></router-outlet>
+    </div>
+</div>

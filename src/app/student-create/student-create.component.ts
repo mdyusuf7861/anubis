@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { studentInfo } from '../student-model';
 import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-student-create',
   templateUrl: './student-create.component.html',
   styleUrls: ['./student-create.component.css']
 })
-export class StudentCreateComponent implements OnInit {
+export class StudentCreateComponent implements OnInit, OnDestroy {
+
+  subsription?: Subscription;
 
   studentForm = new FormGroup({
     id: new FormControl(''),
@@ -31,23 +34,21 @@ export class StudentCreateComponent implements OnInit {
   // });
 
 
-   firstname = new FormControl('');
+  firstname = new FormControl('');
 
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private fb: FormBuilder ){
-
-
+    private fb: FormBuilder) {
     this.firstname.setValue('Enter first name');
   }
 
   ngOnInit(): void {
   }
-  Reset(){
+  Reset() {
   }
-  submit(){
+  submit() {
     const user = {
       id: this.studentForm.controls.id.value,
       name: this.studentForm.controls.userName.value,
@@ -59,26 +60,28 @@ export class StudentCreateComponent implements OnInit {
       user.marks.push(
         {
           name: element.controls.subject.value,
-           marks: element.controls.marks.value
-          });
+          marks: element.controls.marks.value
+        });
     });
 
-    this.http.post<any>('api/students', user, {observe: 'response'}).subscribe({
-      next(response){
+    this.subsription = this.http.post<any>('api/students', user, { observe: 'response' }).subscribe({
+      next(response) {
         console.log(response);
-        if(response.status == 500)
+        if (response.status == 500)
           console.log('Login Failed');
+        if (response.status == 201)
+          console.log('Record is created');
       },
-      error(err){
+      error(err) {
         console.log(err);
       },
-      complete(){
+      complete() {
         console.log('Request is successful');
       }
     });
-    }
+  }
 
-  AddSubjectControls(){
+  AddSubjectControls() {
     this.studentForm.controls.marks.push(
       new FormGroup({
         subject: new FormControl(''),
@@ -86,5 +89,7 @@ export class StudentCreateComponent implements OnInit {
       })
     );
   }
-
+  ngOnDestroy(): void {
+    this.subsription?.unsubscribe();
+  }
 }

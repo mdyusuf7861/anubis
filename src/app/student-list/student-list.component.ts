@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { studentInfo } from '../student-model';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { StudentService } from '../student.service';
 
 @Component({
   selector: 'app-student-list',
@@ -14,12 +14,11 @@ export class StudentListComponent implements OnInit, OnDestroy {
   studentList: studentInfo[] = [];
   observable?: Observable<studentInfo[]>;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient ){
-
+  constructor(private route: ActivatedRoute, private studentSerivice: StudentService ){
   }
 
   ngOnInit(): void {
-    this.observable = this.http.get<studentInfo[]>('api/students/');
+    this.observable = this.studentSerivice.getStudents();
 
     this.observable.subscribe(studentlist => {
       this.studentList = studentlist;
